@@ -30,10 +30,13 @@ review_text = st.text_area("Komentar Produk")
 rating = st.slider("Rating Produk (1 - 5)", 1, 5, 3)
 
 if st.button("Klasifikasikan"):
-    # Gabungkan rating dan komentar jika ingin, atau gunakan komentar saja
-    input_text = review_text.strip()
-    input_vec = vectorizer.transform([input_text])
-    prediction = knn.predict(input_vec)[0]
-    
+    # Aturan berbasis rating
+    if rating < 3:
+        prediction = "Negatif"
+    elif rating == 3:
+        prediction = "Netral"
+    else:
+        prediction = "Positif"
+
     st.subheader("Hasil Klasifikasi")
     st.write(f"Sentimen: **{prediction}**")
